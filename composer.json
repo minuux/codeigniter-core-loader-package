@@ -1,6 +1,6 @@
 {
-	"name": "minuux/codeigniter-core-loader-packages",
-	"description": "part of codeigniter-install-packages",
+	"name": "minuux/codeigniter-core-loader-package",
+	"description": "part of codeigniter-install-package",
 	"license": "MIT",
 	"keywords": [
 		"codeigniter", "composer", "installer","core", "packages"
@@ -12,15 +12,15 @@
 			"role": "Developer"
 		}
 	],
-	"homepage": "https://github.com/minuux/codeigniter-core-loader-packages",
+	"homepage": "https://github.com/minuux/codeigniter-core-loader-package",
 	"support": {
-		"issues": "https://github.com/minuux/codeigniter-core-loader-packages/issues",
-		"source": "https://github.com/minuux/codeigniter-core-loader-packages"
+		"issues": "https://github.com/minuux/codeigniter-core-loader-package/issues",
+		"source": "https://github.com/minuux/codeigniter-core-loader-package"
 	},
 	"require": {
         "php": ">=5.4.0"
     },
 	"autoload": {
-        "files": ["codeigniter_core_loader_packages.php"]
+        "files": ["codeigniter_core_loader_package.php"]
     }
 }
