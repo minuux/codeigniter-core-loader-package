@@ -8,15 +8,13 @@ trait codeigniter_core_loader_package {
         $packages = config_item('packages');
         $package = (object) $packages[$package_name];
         switch ($package->type) {
-            case 'codeigniter-library':
-                return $this->_package_library($package, $params, $object_name);
+            case 'codeigniter-library' : $this->_package_library($package, $params, $object_name);
+            case 'codeigniter-helper' : $this->_package_helper($package);
+            case 'codeigniter-model' : $this->_package_model($package, $params);
             case 'codeigniter-view':
                 //视图中的object_name是用来设置是否返回view的
-                return $this->_package_view($package, $params, $object_name === NULL ? FALSE : TRUE);
-            case 'codeigniter-helper':
-                return $this->_package_helper($package);
-            case 'codeigniter-model':
-                return $this->_package_model($package, $object_name);
+                //load_view会直接返回load所以直接return
+                return $this->_package_view($package, $params, is_null($object_name) ? FALSE : TRUE);
         }
 
         return $this;
@@ -24,7 +22,7 @@ trait codeigniter_core_loader_package {
 
     private function _package_library($package, $params = NULL, $object_name = NULL) {
         include_once($package->path);
-        return $this->_ci_init_library($package->class_name, '', $params, $object_name);
+        $this->_ci_init_library($package->class_name, '', $params, $object_name);
     }
 
     private function _package_view($package, $vars = array(), $return = FALSE) {
@@ -42,17 +40,19 @@ trait codeigniter_core_loader_package {
         if (in_array($package->name, $this->_ci_models, TRUE)) {
             return $this;
         }
+        if(empty($object_name)){
+            $object_name=$package->class_name;
+        }
         $CI = & get_instance();
         if (isset($CI->$object_name)) {
-            show_error('The model name you are loading is the name of a resource that is already being used: ' . $object_name);
+            show_error('codeigniter_core_loader_package:The model name you are loading is the name of a resource that is already being used: ' . $object_name);
         }
         if (!class_exists('CI_Model', FALSE)) {
             load_class('Model', 'core');
         }
         require_once($package->path);
         $this->_ci_models[] = $package->name;
-        $CI->$object_name = new $package->class_name();
-        return $this;
+        $CI->$object_name = new $package->class_name;
     }
 
 }
