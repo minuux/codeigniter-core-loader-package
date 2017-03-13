@@ -6,6 +6,7 @@ trait codeigniter_core_loader_package {
 
     public function package($package_name, $params = NULL, $object_name = NULL) {
         $packages = config_item('packages');
+        $packages[$package_name]['name']=$package_name;
         $package = (object) $packages[$package_name];
         switch ($package->type) {
             case 'codeigniter-library' : $this->_package_library($package, $params, $object_name);break;
