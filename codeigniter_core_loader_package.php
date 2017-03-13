@@ -4,13 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 trait codeigniter_core_loader_package {
 
-    public function package($package_name, $params, $object_name = NULL) {
+    public function package($package_name, $params = NULL, $object_name = NULL) {
         $packages = config_item('packages');
         $package = (object) $packages[$package_name];
         switch ($package->type) {
-            case 'codeigniter-library' : $this->_package_library($package, $params, $object_name);
-            case 'codeigniter-helper' : $this->_package_helper($package);
-            case 'codeigniter-model' : $this->_package_model($package, $params);
+            case 'codeigniter-library' : $this->_package_library($package, $params, $object_name);break;
+            case 'codeigniter-helper' : $this->_package_helper($package);break;
+            case 'codeigniter-model' : $this->_package_model($package, $params);break;
             case 'codeigniter-view':
                 //视图中的object_name是用来设置是否返回view的
                 //load_view会直接返回load所以直接return
