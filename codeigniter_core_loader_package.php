@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 trait codeigniter_core_loader_package {
 
-    public function package($package_name, $params=array(), $object_name = NULL) {
+    public function package($package_name, $params, $object_name = NULL) {
         $packages = config_item('packages');
         $package = (object) $packages[$package_name];
         switch ($package->type) {
